@@ -1,11 +1,15 @@
 import React, { useState, useEffect } from "react";
 
 const ListView = ({ data, onSelect }) => {
-  const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth <= 780);
+  const [isSmallScreen, setIsSmallScreen] = useState(
+    typeof window !== "undefined" ? window.innerWidth <= 780 : ""
+  );
 
   useEffect(() => {
     const handleResize = () => {
-      setIsSmallScreen(window.innerWidth <= 780);
+      if (typeof window !== "undefined") {
+        setIsSmallScreen(window.innerWidth <= 780);
+      }
     };
 
     window.addEventListener("resize", handleResize);

@@ -3,18 +3,17 @@ import React, { useState, useEffect, useCallback } from "react";
 import CandlestickChart from "@/components/CandlestickChart";
 import ListView from "@/components/ListView";
 
+const currencies = [
+  {
+    name: "BTCUSD",
+    key: "btcusd",
+  },
+  {
+    name: "EURUSD",
+    key: "eurusd",
+  },
+];
 const App = () => {
-  const currencies = [
-    {
-      name: "BTCUSD",
-      key: "btcusd",
-    },
-    {
-      name: "EURUSD",
-      key: "eurusd",
-    },
-  ];
-
   const [data, setData] = useState([]);
   const [selectedData, setSelectedData] = useState("btcusd");
   const [loading, setLoading] = useState(false);
@@ -23,7 +22,10 @@ const App = () => {
   const fetchData = useCallback(async (currency: string) => {
     try {
       setLoading(true);
-      const res = await fetch(`http://localhost:3000/${currency}`);
+      const res = await fetch(
+        `https://visualizationdashboardbackend-production.up.railway.app/${currency}`
+      );
+      console.log(res);
       const data = await res.json();
       setData(data);
     } catch (error: any) {
